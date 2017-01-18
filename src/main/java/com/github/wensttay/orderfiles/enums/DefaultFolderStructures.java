@@ -13,7 +13,8 @@ import java.text.SimpleDateFormat;
  */
 public enum DefaultFolderStructures {
     SIMPLE(new SimpleDateFormat("yyyy.MM.dd")),
-    TREE(new SimpleDateFormat("yyyy\\MM\\dd"));
+    TREE(new SimpleDateFormat("yyyy\\MM\\dd")),
+    TREE_MOTH(new SimpleDateFormat("yyyy\\MMMM\\dd"));
     
     private final SimpleDateFormat simpleDateFormat;
 

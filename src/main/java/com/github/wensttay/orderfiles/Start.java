@@ -12,16 +12,20 @@ import java.io.File;
 public class Start {
     
     public static void main(String[] args) {
-        String path = "C:\\Pictures";
+        String path = "D:\\Fotos";
         OrderFiles orderFiles;
         
         // SIMPLE FOLDER MODE
-        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
-                DefaultFolderStructures.SIMPLE);
+//        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
+//                DefaultFolderStructures.SIMPLE);
         
         // TREE FOLDER MODE
 //        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
 //                DefaultFolderStructures.TREE);
+
+        // TREE FOLDER MODE WITH FULL MOTH NAMES
+        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
+                DefaultFolderStructures.TREE_MOTH);
         
         orderFiles.orderByDate(new File(path));
     }
