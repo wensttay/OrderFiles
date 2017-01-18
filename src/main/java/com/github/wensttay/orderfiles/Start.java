@@ -1,5 +1,7 @@
 package com.github.wensttay.orderfiles;
 
+import com.github.wensttay.orderfiles.enums.DefaultDirectorySeparators;
+import com.github.wensttay.orderfiles.enums.DefaultFolderStructures;
 import java.io.File;
 
 /**
@@ -10,8 +12,17 @@ import java.io.File;
 public class Start {
     
     public static void main(String[] args) {
-        String path = "C:\\Users\\Wensttay\\Desktop\\Deskstop\\BACKUP IPHONE 07.07.2016";
-        OrderFiles orderFiles = new OrderFiles();
+        String path = "C:\\Pictures";
+        OrderFiles orderFiles;
+        
+        // SIMPLE FOLDER MODE
+        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
+                DefaultFolderStructures.SIMPLE);
+        
+        // TREE FOLDER MODE
+//        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
+//                DefaultFolderStructures.TREE);
+        
         orderFiles.orderByDate(new File(path));
     }
 }
