@@ -1,5 +1,6 @@
 package com.github.wensttay.orderfiles;
 
+import com.github.wensttay.orderfiles.enums.DefaultFolderStructures;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,26 +8,29 @@ import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 
 /**
- * @version
- * @author Wensttay de Sousa Alencar <yattsnew@gmail.com>
+ * @version @author Wensttay de Sousa Alencar <yattsnew@gmail.com>
  * @date 16/01/2017 - 12:00:00
  */
 public class OrderFiles {
 
-    private SimpleDateFormat timeFormatToNewFolders = new SimpleDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat timeFormatToNewFolders;
+
+    public OrderFiles(DefaultFolderStructures defaultFolderStructures) {
+        this.timeFormatToNewFolders = defaultFolderStructures.getSimpleDateFormat();
+    }
 
     public void orderByDate(File fileHomeFolder) {
         System.out.println("Processing ...");
         orderByDate(fileHomeFolder, fileHomeFolder);
         System.out.println("Completed !");
     }
-    
-    public void orderByDate(File fileHomeFolder, File fileSubFolder){
-        
+
+    public void orderByDate(File fileHomeFolder, File fileSubFolder) {
+
         if (!fileHomeFolder.exists()
                 || !fileSubFolder.exists()
                 || !fileHomeFolder.isDirectory()
-                || !fileSubFolder.isDirectory()){
+                || !fileSubFolder.isDirectory()) {
             return;
         }
 
@@ -35,7 +39,7 @@ public class OrderFiles {
         for (File f : listOfFiles) {
             if (f.exists()) {
                 if (!f.isDirectory()) {
-                    File dir = createDiretory(fileHomeFolder, 
+                    File dir = createDiretory(fileHomeFolder,
                             getTimeFormatToNewFolders().format(f.lastModified()));
                     copyToDiretory(dir, f);
                 } else {
@@ -44,13 +48,15 @@ public class OrderFiles {
             }
         }
     }
-    
+
     private File createDiretory(File fileHomeFolder, String fileName) {
+
         File newDiretory = new File(fileHomeFolder.getPath() + File.separator + fileName);
+//        System.out.println(newDiretory.getPath());
 
         if (!newDiretory.exists()
-                && !newDiretory.isDirectory()) {
-            newDiretory.mkdir();
+                || !newDiretory.isDirectory()) {
+            newDiretory.mkdirs();
         }
 
         return newDiretory;
@@ -60,12 +66,12 @@ public class OrderFiles {
         try {
             File checkNewFile = new File(fileDir.getPath() + File.separator + fileToCopy.getName());
 
-            if (checkNewFile.exists()) { 
+            if (checkNewFile.exists()) {
                 File newDuplicateFile = getNewDuplicateFile(fileDir, fileToCopy);
-                
-                if(newDuplicateFile != null) {
+
+                if (newDuplicateFile != null) {
                     checkNewFile = newDuplicateFile;
-                }else{         
+                } else {
                     return;
                 }
             }
@@ -73,6 +79,16 @@ public class OrderFiles {
             Files.copy(fileToCopy.toPath(),
                     checkNewFile.toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
+
+            String fileToCopyPath = fileToCopy.getPath();
+            int smartNameBreak = fileToCopyPath.lastIndexOf(File.separator) / 2;
+            String from = fileToCopyPath.substring(0, 3) + "..." + fileToCopyPath.substring(smartNameBreak, fileToCopyPath.length());
+
+            String checkNewFilePath = checkNewFile.getPath();
+            smartNameBreak = checkNewFilePath.lastIndexOf(File.separator) / 2;
+            String to = checkNewFilePath.substring(0, 3) + "..." + checkNewFilePath.substring(smartNameBreak, checkNewFilePath.length());
+
+            System.out.println("Copy From: " + from + " >>> To: " + to);
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -96,8 +112,8 @@ public class OrderFiles {
                 fileFormat = nameFileToCopy.substring(pos, nameFileToCopy.length());
             }
 
-            File newDuplicateFile 
-                    = new File(dir.getPath() + File.separator + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
+            File newDuplicateFile = new File(dir.getPath() + File.separator 
+                    + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
 
             if (!newDuplicateFile.exists()) {
                 return newDuplicateFile;
@@ -105,7 +121,7 @@ public class OrderFiles {
                 count++;
             }
         }
-        
+
         return null;
     }
 

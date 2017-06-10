@@ -1,5 +1,6 @@
 package com.github.wensttay.orderfiles;
 
+import com.github.wensttay.orderfiles.enums.DefaultFolderStructures;
 import java.io.File;
 
 /**
@@ -10,8 +11,11 @@ import java.io.File;
 public class Start {
     
     public static void main(String[] args) {
-        String path = "/home/wensttay/Imagens/iphone-5s-backup-08-06-2017";
-        OrderFiles orderFiles = new OrderFiles();
+
+        String path = "/home/wensttay/Imagens/Backups/iphone-5s-backup-08-06-2017";
+        OrderFiles orderFiles;
+        orderFiles = new OrderFiles(DefaultFolderStructures.SIMPLE);
+
         orderFiles.orderByDate(new File(path));
     }
 }
