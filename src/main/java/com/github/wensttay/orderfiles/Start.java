@@ -10,7 +10,7 @@ import java.io.File;
 public class Start {
     
     public static void main(String[] args) {
-        String path = "C:\\Users\\Wensttay\\Desktop\\Deskstop\\BACKUP IPHONE 07.07.2016";
+        String path = "/home/wensttay/Imagens/iphone-5s-backup-08-06-2017";
         OrderFiles orderFiles = new OrderFiles();
         orderFiles.orderByDate(new File(path));
     }

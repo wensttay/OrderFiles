@@ -46,7 +46,7 @@ public class OrderFiles {
     }
     
     private File createDiretory(File fileHomeFolder, String fileName) {
-        File newDiretory = new File(fileHomeFolder.getPath() + "\\" + fileName);
+        File newDiretory = new File(fileHomeFolder.getPath() + File.separator + fileName);
 
         if (!newDiretory.exists()
                 && !newDiretory.isDirectory()) {
@@ -58,7 +58,7 @@ public class OrderFiles {
 
     private void copyToDiretory(File fileDir, File fileToCopy) {
         try {
-            File checkNewFile = new File(fileDir.getPath() + "\\" + fileToCopy.getName());
+            File checkNewFile = new File(fileDir.getPath() + File.separator + fileToCopy.getName());
 
             if (checkNewFile.exists()) { 
                 File newDuplicateFile = getNewDuplicateFile(fileDir, fileToCopy);
@@ -97,7 +97,7 @@ public class OrderFiles {
             }
 
             File newDuplicateFile 
-                    = new File(dir.getPath() + "\\" + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
+                    = new File(dir.getPath() + File.separator + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
 
             if (!newDuplicateFile.exists()) {
                 return newDuplicateFile;
