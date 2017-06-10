@@ -12,21 +12,9 @@ import java.io.File;
 public class Start {
     
     public static void main(String[] args) {
-        String path = "D:\\Fotos";
+        String path = "/home/wensttay/Imagens/Backups/iphone-5s-backup-08-06-2017";
         OrderFiles orderFiles;
-        
-        // SIMPLE FOLDER MODE
-//        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
-//                DefaultFolderStructures.SIMPLE);
-        
-        // TREE FOLDER MODE
-//        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
-//                DefaultFolderStructures.TREE);
-
-        // TREE FOLDER MODE WITH FULL MOTH NAMES
-        orderFiles = new OrderFiles(DefaultDirectorySeparators.WINDOWS,
-                DefaultFolderStructures.TREE_MOTH);
-        
+        orderFiles = new OrderFiles(DefaultFolderStructures.SIMPLE);
         orderFiles.orderByDate(new File(path));
     }
 }

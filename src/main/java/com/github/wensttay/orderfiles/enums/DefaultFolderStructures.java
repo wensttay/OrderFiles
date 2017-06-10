@@ -5,6 +5,7 @@
  */
 package com.github.wensttay.orderfiles.enums;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 /**
@@ -13,8 +14,8 @@ import java.text.SimpleDateFormat;
  */
 public enum DefaultFolderStructures {
     SIMPLE(new SimpleDateFormat("yyyy.MM.dd")),
-    TREE(new SimpleDateFormat("yyyy\\MM\\dd")),
-    TREE_MOTH(new SimpleDateFormat("yyyy\\MMMM\\dd"));
+    TREE(new SimpleDateFormat("yyyy" + File.separator + "MM" + File.separator + "dd")),
+    TREE_MOTH(new SimpleDateFormat("yyyy" + File.separator + "MMMM" + File.separator + "dd"));
     
     private final SimpleDateFormat simpleDateFormat;
 

@@ -1,6 +1,5 @@
 package com.github.wensttay.orderfiles;
 
-import com.github.wensttay.orderfiles.enums.DefaultDirectorySeparators;
 import com.github.wensttay.orderfiles.enums.DefaultFolderStructures;
 import java.io.File;
 import java.io.IOException;
@@ -15,21 +14,9 @@ import java.text.SimpleDateFormat;
 public class OrderFiles {
 
     private SimpleDateFormat timeFormatToNewFolders;
-    private String directorySeparator;
 
-    public OrderFiles(DefaultDirectorySeparators defaultDirectorySeparators) {
-        this.directorySeparator = defaultDirectorySeparators.getDirectorySeparator();
-        timeFormatToNewFolders = DefaultFolderStructures.SIMPLE.getSimpleDateFormat();
-    }
-
-    public OrderFiles(DefaultDirectorySeparators defaultDirectorySeparators, DefaultFolderStructures defaultFolderStructures) {
-        this.directorySeparator = defaultDirectorySeparators.getDirectorySeparator();
+    public OrderFiles(DefaultFolderStructures defaultFolderStructures) {
         this.timeFormatToNewFolders = defaultFolderStructures.getSimpleDateFormat();
-    }
-
-    public OrderFiles(SimpleDateFormat timeFormatToNewFolders, String directorySeparator) {
-        this.timeFormatToNewFolders = timeFormatToNewFolders;
-        this.directorySeparator = directorySeparator;
     }
 
     public void orderByDate(File fileHomeFolder) {
@@ -64,7 +51,7 @@ public class OrderFiles {
 
     private File createDiretory(File fileHomeFolder, String fileName) {
 
-        File newDiretory = new File(fileHomeFolder.getPath() + getSeparator() + fileName);
+        File newDiretory = new File(fileHomeFolder.getPath() + File.separator + fileName);
 //        System.out.println(newDiretory.getPath());
 
         if (!newDiretory.exists()
@@ -77,7 +64,7 @@ public class OrderFiles {
 
     private void copyToDiretory(File fileDir, File fileToCopy) {
         try {
-            File checkNewFile = new File(fileDir.getPath() + getSeparator() + fileToCopy.getName());
+            File checkNewFile = new File(fileDir.getPath() + File.separator + fileToCopy.getName());
 
             if (checkNewFile.exists()) {
                 File newDuplicateFile = getNewDuplicateFile(fileDir, fileToCopy);
@@ -94,11 +81,11 @@ public class OrderFiles {
                     StandardCopyOption.REPLACE_EXISTING);
 
             String fileToCopyPath = fileToCopy.getPath();
-            int smartNameBreak = fileToCopyPath.lastIndexOf("\\") / 2;
+            int smartNameBreak = fileToCopyPath.lastIndexOf(File.separator) / 2;
             String from = fileToCopyPath.substring(0, 3) + "..." + fileToCopyPath.substring(smartNameBreak, fileToCopyPath.length());
 
             String checkNewFilePath = checkNewFile.getPath();
-            smartNameBreak = checkNewFilePath.lastIndexOf("\\") / 2;
+            smartNameBreak = checkNewFilePath.lastIndexOf(File.separator) / 2;
             String to = checkNewFilePath.substring(0, 3) + "..." + checkNewFilePath.substring(smartNameBreak, checkNewFilePath.length());
 
             System.out.println("Copy From: " + from + " >>> To: " + to);
@@ -126,7 +113,7 @@ public class OrderFiles {
             }
 
             File newDuplicateFile
-                    = new File(dir.getPath() + getSeparator() + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
+                    = new File(dir.getPath() + File.separator + fileNameWithOutFormat + " (" + count + ")" + fileFormat);
 
             if (!newDuplicateFile.exists()) {
                 return newDuplicateFile;
@@ -150,20 +137,6 @@ public class OrderFiles {
      */
     public void setTimeFormatToNewFolders(SimpleDateFormat timeFormatToNewFolders) {
         this.timeFormatToNewFolders = timeFormatToNewFolders;
-    }
-
-    /**
-     * @return the separator
-     */
-    public String getSeparator() {
-        return directorySeparator;
-    }
-
-    /**
-     * @param separator the separator to set
-     */
-    public void setSeparator(String separator) {
-        this.directorySeparator = separator;
     }
 
 }
