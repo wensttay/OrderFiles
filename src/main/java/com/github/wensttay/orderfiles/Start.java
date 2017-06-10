@@ -1,6 +1,5 @@
 package com.github.wensttay.orderfiles;
 
-import com.github.wensttay.orderfiles.enums.DefaultDirectorySeparators;
 import com.github.wensttay.orderfiles.enums.DefaultFolderStructures;
 import java.io.File;
 
